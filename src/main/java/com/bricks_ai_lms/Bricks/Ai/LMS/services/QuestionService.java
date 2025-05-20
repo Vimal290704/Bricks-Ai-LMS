@@ -68,6 +68,24 @@ public class QuestionService {
         return questions.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
+    public List<QuestionDTO> filterQuestions(Integer topicId, String difficultyStr, Integer subjectId, String typeStr) {
+        DifficultyLevel difficulty = null;
+        if (difficultyStr != null && !difficultyStr.isEmpty() && !difficultyStr.equalsIgnoreCase("ALL")) {
+            difficulty = DifficultyLevel.valueOf(difficultyStr);
+        }
+
+        QuestionType type = null;
+        if (typeStr != null && !typeStr.isEmpty() && !typeStr.equalsIgnoreCase("ALL")) {
+            type = QuestionType.valueOf(typeStr);
+        }
+
+        Integer finalTopicId = (topicId != null && topicId > 0) ? topicId : null;
+        Integer finalSubjectId = (subjectId != null && subjectId > 0) ? subjectId : null;
+
+        List<Question> questions = questionRepository.filterQuestions(finalTopicId, difficulty, finalSubjectId, type);
+        return questions.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
     private QuestionDTO convertToDTO(Question question) {
         QuestionDTO dto = new QuestionDTO();
         dto.setId(question.getId());

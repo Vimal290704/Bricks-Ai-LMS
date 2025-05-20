@@ -27,4 +27,15 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
 
     @Query("SELECT q FROM Question q WHERE q.topic.subject.id = :subjectId")
     List<Question> findBySubjectId(@Param("subjectId") Integer subjectId);
+
+    @Query("SELECT q FROM Question q " +
+            "WHERE (:topicId IS NULL OR q.topic.id = :topicId) " +
+            "AND (:difficulty IS NULL OR q.difficulty = :difficulty) " +
+            "AND (:subjectId IS NULL OR q.topic.subject.id = :subjectId) " +
+            "AND (:type IS NULL OR q.type = :type)")
+    List<Question> filterQuestions(
+            @Param("topicId") Integer topicId,
+            @Param("difficulty") DifficultyLevel difficulty,
+            @Param("subjectId") Integer subjectId,
+            @Param("type") QuestionType type);
 }

@@ -1,18 +1,17 @@
 package com.bricks_ai_lms.Bricks.Ai.LMS.controllers;
 
+import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.QuestionBankDTOs.FilterRequestDTO;
 import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.QuestionBankDTOs.QuestionDTO;
 import com.bricks_ai_lms.Bricks.Ai.LMS.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/questions")
+@CrossOrigin(origins = "*" , allowedHeaders = "*")
 public class QuestionController {
 
     @Autowired
@@ -75,5 +74,26 @@ public class QuestionController {
             @PathVariable String difficulty) {
         List<QuestionDTO> questions = questionService.getQuestionsByTopicAndDifficulty(topicId, difficulty);
         return ResponseEntity.ok(questions);
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<QuestionDTO>> filterQuestions(
+            @RequestParam(required = false) Integer topicId,
+            @RequestParam(required = false) String difficulty,
+            @RequestParam(required = false) Integer subjectId,
+            @RequestParam(required = false) String type) {
+
+        List<QuestionDTO> questions = questionService.filterQuestions(topicId, difficulty, subjectId, type);
+        return ResponseEntity.ok(questions);
+    }
+
+    @PostMapping("/filter")
+    public ResponseEntity<List<QuestionDTO>> filterQuestionsPost(@RequestBody FilterRequestDTO filterRequest) {
+        return ResponseEntity.ok(questionService.filterQuestions(
+                filterRequest.getTopicId(),
+                filterRequest.getDifficulty(),
+                filterRequest.getSubjectId(),
+                filterRequest.getType()
+        ));
     }
 }
