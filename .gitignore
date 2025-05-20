@@ -1,12 +1,12 @@
-# Maven specific
-target/
-*.jar
-*.war
-*.ear
-.mvn/
-mvnw
-mvnw.cmd
-!.mvn/wrapper/maven-wrapper.jar
+# Backend specific ignores
+backend/target/
+backend/*.jar
+backend/*.war
+backend/*.ear
+backend/.mvn/
+backend/mvnw
+backend/mvnw.cmd
+!backend/.mvn/wrapper/maven-wrapper.jar
 
 # IDE files
 .idea/
@@ -16,28 +16,55 @@ mvnw.cmd
 .vscode/
 
 # Eclipse/STS
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+backend/.apt_generated
+backend/.classpath
+backend/.factorypath
+backend/.project
+backend/.settings
+backend/.springBeans
+backend/.sts4-cache
 
 # NetBeans
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+backend/nbproject/private/
+backend/nbbuild/
+backend/dist/
+backend/nbdist/
+backend/.nb-gradle/
 
-# Build directories
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-!**/src/main/**/target/
-!**/src/test/**/target/
+# Backend build directories
+backend/build/
+!backend/src/main/**/build/
+!backend/src/test/**/build/
+!backend/src/main/**/target/
+!backend/src/test/**/target/
 
+# Backend sensitive configuration
+backend/src/main/resources/application-local.properties
+backend/src/main/resources/application-prod.properties
+backend/src/main/resources/application-dev.properties
+# Keep template configuration
+!backend/src/main/resources/application.properties
 
-src/main/resources/application.properties
+# Frontend specific ignores
+frontend/node_modules/
+frontend/.pnp
+frontend/.pnp.js
+frontend/coverage/
+frontend/build/
+frontend/.DS_Store
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.eslintcache
 
+# General
+.DS_Store
+.env
+*.log
+logs/
+temp/
+tmp/
