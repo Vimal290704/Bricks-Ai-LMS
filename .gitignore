@@ -39,7 +39,5 @@ build/
 !**/src/test/**/target/
 
 
-### VS Code ###
-.vscode/
-
+./src/main/resources/application.properties
 
