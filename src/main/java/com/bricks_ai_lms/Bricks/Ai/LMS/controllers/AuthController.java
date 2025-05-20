@@ -4,7 +4,9 @@ import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.AuthenticationRequest;
 import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.AuthenticationResponse;
 import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.SignupRequest;
 import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.UserDto;
-import com.bricks_ai_lms.Bricks.Ai.LMS.services.auth.AuthService;
+import com.bricks_ai_lms.Bricks.Ai.LMS.entities.User;
+import com.bricks_ai_lms.Bricks.Ai.LMS.repositories.UserRepository;
+import com.bricks_ai_lms.Bricks.Ai.LMS.services.auth.jwt.AuthService;
 import com.bricks_ai_lms.Bricks.Ai.LMS.services.auth.jwt.UserDetailsServiceImpl;
 import com.bricks_ai_lms.Bricks.Ai.LMS.util.JwtUtil;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -29,12 +32,15 @@ public class AuthController {
 
     private final UserDetailsServiceImpl userDetailsService;
 
+    private final UserRepository userRepository;
+
     private final JwtUtil jwtUtil;
 
-    public AuthController(AuthService authService, AuthenticationManager authenticationManager, UserDetailsServiceImpl userDetailsService, JwtUtil jwtUtil) {
+    public AuthController(AuthService authService, AuthenticationManager authenticationManager, UserDetailsServiceImpl userDetailsService, UserRepository userRepository, JwtUtil jwtUtil) {
         this.authService = authService;
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
+        this.userRepository = userRepository;
         this.jwtUtil = jwtUtil;
     }
 
@@ -61,6 +67,13 @@ public class AuthController {
         }
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
         final String jwt = jwtUtil.generateToken(userDetails.getUsername());
-        return new AuthenticationResponse(jwt);
+        Optional<User> optionalUser = userRepository.findFirstByEmail(userDetails.getUsername());
+        AuthenticationResponse authenticationResponse = new AuthenticationResponse();
+        if(optionalUser.isPresent()){
+            authenticationResponse.setJwt(jwt);
+            authenticationResponse.setUserRole(optionalUser.get().getRole());
+            authenticationResponse.setUserId(optionalUser.get().getId());
+        }
+        return authenticationResponse;
     }
 }
