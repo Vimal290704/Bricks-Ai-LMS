@@ -3,14 +3,15 @@ package com.bricks_ai_lms.Bricks.Ai.LMS.util;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.*;
 
 @Component
 public class JwtUtil {
-
-    private static final String SECRET = "b3JzQWk3d0p5Q2ZzQkZ6T1l2d1JxYkV6U3lXblF6Z2h1Wm9kV0xjV2p2d1E";
+    @Value("${jwt.secret}")
+    private String SECRET;
 
     public String generateToken(String email) {
         Map<String, Object> claims = new HashMap<>();
