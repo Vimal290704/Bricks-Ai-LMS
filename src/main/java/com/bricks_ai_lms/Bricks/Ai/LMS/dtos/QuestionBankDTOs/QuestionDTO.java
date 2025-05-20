@@ -5,7 +5,7 @@ import com.bricks_ai_lms.Bricks.Ai.LMS.enums.QuestionBank.QuestionType;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.*;
+import java.util.List;
 
 @Setter
 @Getter

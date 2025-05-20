@@ -19,7 +19,7 @@ public class AuthServiceImplementation implements AuthService {
     }
 
     @Override
-    public UserDto createUser(SignupRequest signupRequest){
+    public UserDto createUser(SignupRequest signupRequest) {
         User user = new User();
         user.setName(signupRequest.getName());
         user.setEmail(signupRequest.getEmail());

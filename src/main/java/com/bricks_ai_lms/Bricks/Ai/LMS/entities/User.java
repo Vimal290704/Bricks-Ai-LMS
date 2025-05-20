@@ -3,14 +3,13 @@ package com.bricks_ai_lms.Bricks.Ai.LMS.entities;
 import com.bricks_ai_lms.Bricks.Ai.LMS.enums.Gender;
 import com.bricks_ai_lms.Bricks.Ai.LMS.enums.UserRole;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
 
     @Id

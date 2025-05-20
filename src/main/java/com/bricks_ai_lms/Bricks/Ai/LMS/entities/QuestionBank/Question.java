@@ -22,11 +22,11 @@ public class Question {
 
 
     @ManyToOne
-    @JoinColumn(name="topic_id" , nullable = false)
+    @JoinColumn(name = "topic_id", nullable = false)
     @JsonIgnore
     private Topic topic;
 
-    @Column(nullable = false , columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String text;
 
     @Enumerated(EnumType.STRING)
@@ -37,19 +37,19 @@ public class Question {
     @Column(nullable = false)
     private DifficultyLevel difficulty;
 
-    @Column(name="correct_answer" , columnDefinition = "TEXT")
+    @Column(name = "correct_answer", columnDefinition = "TEXT")
     private String correctAnswer;
 
     @Column(columnDefinition = "TEXT")
     private String explanation;
 
     @ManyToOne
-    @JoinColumn(name="source_id")
+    @JoinColumn(name = "source_id")
     private Source source;
 
     private Integer year;
 
-    @OneToMany(mappedBy = "question" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Option> options;
 
 

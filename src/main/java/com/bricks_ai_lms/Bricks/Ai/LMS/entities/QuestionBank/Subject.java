@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.*;
+import java.util.List;
 
 @Setter
 @Getter
@@ -16,10 +16,10 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = true , nullable = false)
+    @Column(unique = true, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "subject" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
     private List<Topic> topics;
 
 }

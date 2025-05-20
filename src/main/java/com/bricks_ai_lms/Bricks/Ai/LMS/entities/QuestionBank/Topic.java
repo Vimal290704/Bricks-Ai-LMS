@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.*;
+import java.util.List;
 
 @Setter
 @Getter
@@ -22,11 +22,11 @@ public class Topic {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "subject_id" , nullable = false)
+    @JoinColumn(name = "subject_id", nullable = false)
     @JsonIgnore
     private Subject subject;
 
-    @OneToMany(mappedBy = "topic" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL)
     private List<Question> questions;
 
 

@@ -112,9 +112,7 @@ public class QuestionService {
         }
 
         if (question.getOptions() != null) {
-            List<OptionDTO> optionDTOs = question.getOptions().stream()
-                    .map(this::convertToOptionDTO)
-                    .collect(Collectors.toList());
+            List<OptionDTO> optionDTOs = question.getOptions().stream().map(this::convertToOptionDTO).collect(Collectors.toList());
             dto.setOptions(optionDTOs);
         }
 

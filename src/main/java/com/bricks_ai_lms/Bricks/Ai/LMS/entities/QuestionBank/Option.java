@@ -18,7 +18,7 @@ public class Option {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "question_id" , nullable = false)
+    @JoinColumn(name = "question_id", nullable = false)
     @JsonIgnore
     private Question question;
 
@@ -27,7 +27,7 @@ public class Option {
     @Column(nullable = false)
     private OptionLabel label;
 
-    @Column(nullable = false , columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String text;
 
 

@@ -18,7 +18,7 @@ public class SimpleCorsFilter implements Filter {
     private final String clientAppUrl = "https://localhost:5173/*";
 
 
-    public void doFilter(ServletRequest req , ServletResponse res , FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpServletRequest request = (HttpServletRequest) req;
         Map<String, String> map = new HashMap<>();
@@ -31,13 +31,13 @@ public class SimpleCorsFilter implements Filter {
 
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
-        }else {
-            chain.doFilter(req , res);
+        } else {
+            chain.doFilter(req, res);
         }
     }
 
     @Override
-    public void init(FilterConfig filterConfig){
+    public void init(FilterConfig filterConfig) {
 
     }
 

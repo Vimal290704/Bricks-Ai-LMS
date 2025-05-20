@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class OptionDTO{
+public class OptionDTO {
 
     private Integer id;
 
