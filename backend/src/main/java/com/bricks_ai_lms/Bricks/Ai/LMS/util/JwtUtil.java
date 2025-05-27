@@ -20,21 +20,11 @@ public class JwtUtil {
     private long jwtExpirationMs;
 
     public String generateToken(String subject) {
-        Date now = new Date();
-        Date expiry = new Date(now.getTime() + jwtExpirationMs);
         Key key = getSignKey();
-
         return Jwts.builder()
-                .setSubject(subject)
-                .setIssuedAt(now)
-                .setExpiration(expiry)
                 .signWith(key)
                 .compact();
     }
-
-    /**
-     * Extract the subject (e.g. username/email) from the token. Returns null if parsing fails.
-     */
     public String extractSubject(String token) {
         try {
             Jws<Claims> jws = Jwts.parser()
@@ -43,18 +33,15 @@ public class JwtUtil {
                     .parseSignedClaims(token);
             return jws.getPayload().getSubject();
         } catch (JwtException | IllegalArgumentException e) {
-            // malformed, expired or unsupported JWT
             return null;
         }
     }
 
     public boolean validateToken(String token) {
         try {
-            // Parse (verifies signature and checks expiration)
             Jwts.parser().verifyWith((SecretKey) getSignKey()).build().parseSignedClaims(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            // invalid signature/claims, expired, or other parsing issue
             return false;
         }
     }
@@ -62,10 +49,8 @@ public class JwtUtil {
     public Key getSignKey() {
         byte[] keyBytes;
         try {
-            // try Base64 decode (preferred if secret is stored encoded)
             keyBytes = Decoders.BASE64.decode(jwtSecret);
         } catch (Exception e) {
-            // fallback to raw UTF-8 bytes (not recommended if key is short)
             keyBytes = jwtSecret.getBytes(java.nio.charset.StandardCharsets.UTF_8);
         }
         try {
@@ -76,7 +61,6 @@ public class JwtUtil {
     }
 
     public String extractUsername(String jwt) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'extractUsername'");
+        return extractSubject(jwt);
     }
 }
