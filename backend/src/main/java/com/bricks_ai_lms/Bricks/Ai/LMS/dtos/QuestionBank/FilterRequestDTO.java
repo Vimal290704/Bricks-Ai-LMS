@@ -1,4 +1,4 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.dtos.QuestionBankDTOs;
+package com.bricks_ai_lms.Bricks.Ai.LMS.dtos.QuestionBank;
 
 import lombok.Getter;
 import lombok.Setter;

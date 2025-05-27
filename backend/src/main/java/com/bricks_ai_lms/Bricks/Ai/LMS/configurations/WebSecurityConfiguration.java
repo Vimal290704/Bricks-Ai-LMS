@@ -32,6 +32,7 @@ public class WebSecurityConfiguration {
                         .requestMatchers("/api/topics/**").permitAll()
                         .requestMatchers("/api/subjects/**").permitAll()
                         .requestMatchers("/api/sources/**").permitAll()
+                        .requestMatchers("/api/students/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(management -> management
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));

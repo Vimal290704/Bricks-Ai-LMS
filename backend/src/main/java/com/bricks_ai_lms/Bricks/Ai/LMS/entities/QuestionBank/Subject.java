@@ -22,4 +22,6 @@ public class Subject {
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
     private List<Topic> topics;
 
+    private String description;
+
 }

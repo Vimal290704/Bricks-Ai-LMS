@@ -1,4 +1,4 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.dtos;
+package com.bricks_ai_lms.Bricks.Ai.LMS.dtos.Authentication;
 
 import com.bricks_ai_lms.Bricks.Ai.LMS.enums.UserRole;
 import lombok.Data;
@@ -11,6 +11,5 @@ public class AuthenticationResponse {
     private UserRole userRole;
 
     private Long userId;
-
 
 }

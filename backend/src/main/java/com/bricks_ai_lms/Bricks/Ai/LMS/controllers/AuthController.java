@@ -1,11 +1,11 @@
 package com.bricks_ai_lms.Bricks.Ai.LMS.controllers;
 
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.AuthenticationRequest;
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.AuthenticationResponse;
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.SignupRequest;
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.UserDto;
-import com.bricks_ai_lms.Bricks.Ai.LMS.entities.User;
-import com.bricks_ai_lms.Bricks.Ai.LMS.repositories.UserRepository;
+import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.Authentication.AuthenticationRequest;
+import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.Authentication.AuthenticationResponse;
+import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.SignUp.SignupRequest;
+import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.Users.UserDto;
+import com.bricks_ai_lms.Bricks.Ai.LMS.entities.UserEnt.User;
+import com.bricks_ai_lms.Bricks.Ai.LMS.repositories.Users.UserRepository;
 import com.bricks_ai_lms.Bricks.Ai.LMS.services.auth.jwt.AuthService;
 import com.bricks_ai_lms.Bricks.Ai.LMS.services.auth.jwt.UserDetailsServiceImpl;
 import com.bricks_ai_lms.Bricks.Ai.LMS.util.JwtUtil;
@@ -17,6 +17,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,6 +61,10 @@ public class AuthController {
 
     @PostMapping("/login")
     public AuthenticationResponse createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response) throws IOException {
+        System.out.println("Login endpoint hit with email: " + authenticationRequest.getEmail() + authenticationRequest.getPassword());
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        boolean matches = encoder.matches("defaultPassword123", "$2a$10$N.zmdr9k7uOcNfTaewVAsO4/0rXDbqjmHamm8RfChUHVkdEzh7mTu");
+        System.out.println("Password matches: " + matches);
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
         } catch (BadCredentialsException e) {
@@ -68,9 +73,10 @@ public class AuthController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "User not active");
             return null;
         }
+        System.out.println("Passed");
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
         final String jwt = jwtUtil.generateToken(userDetails.getUsername());
-        Optional<User> optionalUser = userRepository.findFirstByEmail(userDetails.getUsername());
+        Optional<User> optionalUser = userRepository.findByEmail(userDetails.getUsername());
         AuthenticationResponse authenticationResponse = new AuthenticationResponse();
         if (optionalUser.isPresent()) {
             authenticationResponse.setJwt(jwt);

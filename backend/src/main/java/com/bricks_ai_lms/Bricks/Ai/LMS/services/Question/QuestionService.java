@@ -1,7 +1,7 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.services;
+package com.bricks_ai_lms.Bricks.Ai.LMS.services.Question;
 
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.QuestionBankDTOs.OptionDTO;
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.QuestionBankDTOs.QuestionDTO;
+import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.QuestionBank.OptionDTO;
+import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.QuestionBank.QuestionDTO;
 import com.bricks_ai_lms.Bricks.Ai.LMS.entities.QuestionBank.Option;
 import com.bricks_ai_lms.Bricks.Ai.LMS.entities.QuestionBank.Question;
 import com.bricks_ai_lms.Bricks.Ai.LMS.enums.QuestionBank.DifficultyLevel;
