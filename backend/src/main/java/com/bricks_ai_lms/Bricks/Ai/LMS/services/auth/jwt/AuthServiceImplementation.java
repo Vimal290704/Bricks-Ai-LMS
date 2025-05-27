@@ -15,11 +15,8 @@ public class AuthServiceImplementation implements AuthService {
 
     private final UserRepository userRepository;
 
-    private final BCryptPasswordEncoder passwordEncoder;
-
-    public AuthServiceImplementation(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+    public AuthServiceImplementation(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -32,6 +29,7 @@ public class AuthServiceImplementation implements AuthService {
         if (userRepository.findByUsername(signupRequest.getUsername()).isPresent()) {
             throw new RuntimeException("Username already in use");
         }
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         User user = new User();
         user.setUsername(signupRequest.getUsername());
         user.setName(signupRequest.getName());

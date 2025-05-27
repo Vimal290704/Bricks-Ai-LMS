@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.bricks-ai-lms</groupId>
-	<artifactId>Bricks-Ai-LMS</artifactId>
+	<artifactId>bricks.ai.lms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Bricks-Ai-LMS</name>
+	<name>bricks.ai.lms</name>
 	<description>App for Bricks AI LMS</description>
 	<url/>
 	<licenses>

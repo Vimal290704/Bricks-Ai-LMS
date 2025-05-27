@@ -61,10 +61,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public AuthenticationResponse createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response) throws IOException {
-        System.out.println("Login endpoint hit with email: " + authenticationRequest.getEmail() + authenticationRequest.getPassword());
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        boolean matches = encoder.matches("defaultPassword123", "$2a$10$N.zmdr9k7uOcNfTaewVAsO4/0rXDbqjmHamm8RfChUHVkdEzh7mTu");
-        System.out.println("Password matches: " + matches);
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
         } catch (BadCredentialsException e) {
