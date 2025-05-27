@@ -7,7 +7,6 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.WeakKeyException;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -74,5 +73,10 @@ public class JwtUtil {
         } catch (WeakKeyException we) {
             throw new IllegalArgumentException("JWT secret is too weak or short.", we);
         }
+    }
+
+    public String extractUsername(String jwt) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'extractUsername'");
     }
 }
