@@ -1,13 +1,13 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.services;
+package com.bricks_ai_lms.bricks.ai.lms.services;
 
-import com.bricks_ai_lms.Bricks.Ai.LMS.entities.QuestionBank.Subject;
-import com.bricks_ai_lms.Bricks.Ai.LMS.entities.UserEnt.Student;
-import com.bricks_ai_lms.Bricks.Ai.LMS.entities.UserEnt.StudentClass;
-import com.bricks_ai_lms.Bricks.Ai.LMS.enums.Gender;
-import com.bricks_ai_lms.Bricks.Ai.LMS.enums.UserRole;
-import com.bricks_ai_lms.Bricks.Ai.LMS.repositories.QuestionBank.SubjectRepository;
-import com.bricks_ai_lms.Bricks.Ai.LMS.repositories.Users.StudentRepository;
-import com.bricks_ai_lms.Bricks.Ai.LMS.repositories.Users.StudentClassRepository;
+import com.bricks_ai_lms.bricks.ai.lms.entities.QuestionBank.Subject;
+import com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt.Student;
+import com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt.StudentClass;
+import com.bricks_ai_lms.bricks.ai.lms.enums.Gender;
+import com.bricks_ai_lms.bricks.ai.lms.enums.UserRole;
+import com.bricks_ai_lms.bricks.ai.lms.repositories.QuestionBank.SubjectRepository;
+import com.bricks_ai_lms.bricks.ai.lms.repositories.Users.StudentRepository;
+import com.bricks_ai_lms.bricks.ai.lms.repositories.Users.StudentClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

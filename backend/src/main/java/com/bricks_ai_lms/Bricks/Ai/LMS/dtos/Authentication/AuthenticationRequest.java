@@ -1,4 +1,4 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.dtos.Authentication;
+package com.bricks_ai_lms.bricks.ai.lms.dtos.Authentication;
 
 import lombok.Getter;
 import lombok.Setter;

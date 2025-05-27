@@ -1,12 +1,12 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.services.Question;
+package com.bricks_ai_lms.bricks.ai.lms.services.Question;
 
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.QuestionBank.OptionDTO;
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.QuestionBank.QuestionDTO;
-import com.bricks_ai_lms.Bricks.Ai.LMS.entities.QuestionBank.Option;
-import com.bricks_ai_lms.Bricks.Ai.LMS.entities.QuestionBank.Question;
-import com.bricks_ai_lms.Bricks.Ai.LMS.enums.QuestionBank.DifficultyLevel;
-import com.bricks_ai_lms.Bricks.Ai.LMS.enums.QuestionBank.QuestionType;
-import com.bricks_ai_lms.Bricks.Ai.LMS.repositories.QuestionBank.QuestionRepository;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.QuestionBank.OptionDTO;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.QuestionBank.QuestionDTO;
+import com.bricks_ai_lms.bricks.ai.lms.entities.QuestionBank.Option;
+import com.bricks_ai_lms.bricks.ai.lms.entities.QuestionBank.Question;
+import com.bricks_ai_lms.bricks.ai.lms.enums.QuestionBank.DifficultyLevel;
+import com.bricks_ai_lms.bricks.ai.lms.enums.QuestionBank.QuestionType;
+import com.bricks_ai_lms.bricks.ai.lms.repositories.QuestionBank.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

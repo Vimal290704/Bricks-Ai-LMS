@@ -1,6 +1,6 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.dtos.Users;
+package com.bricks_ai_lms.bricks.ai.lms.dtos.Users;
 
-import com.bricks_ai_lms.Bricks.Ai.LMS.enums.Gender;
+import com.bricks_ai_lms.bricks.ai.lms.enums.Gender;
 import lombok.Data;
 
 import java.time.LocalDate;

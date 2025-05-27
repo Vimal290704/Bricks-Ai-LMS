@@ -1,11 +1,11 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.services.auth.jwt;
+package com.bricks_ai_lms.bricks.ai.lms.services.auth.jwt;
 
 
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.SignUp.SignupRequest;
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.Users.UserDto;
-import com.bricks_ai_lms.Bricks.Ai.LMS.entities.UserEnt.User;
-import com.bricks_ai_lms.Bricks.Ai.LMS.enums.UserRole;
-import com.bricks_ai_lms.Bricks.Ai.LMS.repositories.Users.UserRepository;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.SignUp.SignupRequest;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.Users.UserDto;
+import com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt.User;
+import com.bricks_ai_lms.bricks.ai.lms.enums.UserRole;
+import com.bricks_ai_lms.bricks.ai.lms.repositories.Users.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

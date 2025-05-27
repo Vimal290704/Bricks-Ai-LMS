@@ -1,6 +1,6 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.dtos.QuestionBank;
+package com.bricks_ai_lms.bricks.ai.lms.dtos.QuestionBank;
 
-import com.bricks_ai_lms.Bricks.Ai.LMS.enums.QuestionBank.OptionLabel;
+import com.bricks_ai_lms.bricks.ai.lms.enums.QuestionBank.OptionLabel;
 import lombok.Getter;
 import lombok.Setter;
 

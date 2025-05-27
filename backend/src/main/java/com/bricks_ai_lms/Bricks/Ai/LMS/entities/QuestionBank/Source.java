@@ -1,7 +1,7 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.entities.QuestionBank;
+package com.bricks_ai_lms.bricks.ai.lms.entities.QuestionBank;
 
 
-import com.bricks_ai_lms.Bricks.Ai.LMS.enums.QuestionBank.SourceType;
+import com.bricks_ai_lms.bricks.ai.lms.enums.QuestionBank.SourceType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

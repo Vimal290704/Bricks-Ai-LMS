@@ -1,4 +1,4 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.dtos.Users;
+package com.bricks_ai_lms.bricks.ai.lms.dtos.Users;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

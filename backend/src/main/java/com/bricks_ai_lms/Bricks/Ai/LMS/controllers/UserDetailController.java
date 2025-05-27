@@ -1,9 +1,9 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.controllers;
+package com.bricks_ai_lms.bricks.ai.lms.controllers;
 
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.Users.UserDetailResponseDto;
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.Users.UserDto;
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.Users.UserUpdateRequestDto;
-import com.bricks_ai_lms.Bricks.Ai.LMS.services.UserDetailService;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.Users.UserDetailResponseDto;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.Users.UserDto;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.Users.UserUpdateRequestDto;
+import com.bricks_ai_lms.bricks.ai.lms.services.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;

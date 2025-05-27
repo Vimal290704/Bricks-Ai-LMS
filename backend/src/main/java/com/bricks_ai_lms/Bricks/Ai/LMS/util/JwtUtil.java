@@ -1,4 +1,4 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.util;
+package com.bricks_ai_lms.bricks.ai.lms.util;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;

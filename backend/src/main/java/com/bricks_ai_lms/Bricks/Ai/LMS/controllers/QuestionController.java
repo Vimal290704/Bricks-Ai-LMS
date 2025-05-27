@@ -1,8 +1,8 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.controllers;
+package com.bricks_ai_lms.bricks.ai.lms.controllers;
 
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.QuestionBank.FilterRequestDTO;
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.QuestionBank.QuestionDTO;
-import com.bricks_ai_lms.Bricks.Ai.LMS.services.Question.QuestionService;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.QuestionBank.FilterRequestDTO;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.QuestionBank.QuestionDTO;
+import com.bricks_ai_lms.bricks.ai.lms.services.Question.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

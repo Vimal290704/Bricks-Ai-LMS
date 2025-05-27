@@ -1,7 +1,7 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.entities.UserEnt;
+package com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt;
 
-import com.bricks_ai_lms.Bricks.Ai.LMS.enums.Gender;
-import com.bricks_ai_lms.Bricks.Ai.LMS.enums.UserRole;
+import com.bricks_ai_lms.bricks.ai.lms.enums.Gender;
+import com.bricks_ai_lms.bricks.ai.lms.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

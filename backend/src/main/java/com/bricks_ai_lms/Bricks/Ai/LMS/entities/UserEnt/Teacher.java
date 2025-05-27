@@ -1,6 +1,6 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.entities.UserEnt;
+package com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt;
 
-import com.bricks_ai_lms.Bricks.Ai.LMS.entities.QuestionBank.Subject;
+import com.bricks_ai_lms.bricks.ai.lms.entities.QuestionBank.Subject;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS;
+package com.bricks_ai_lms.bricks.ai.lms;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

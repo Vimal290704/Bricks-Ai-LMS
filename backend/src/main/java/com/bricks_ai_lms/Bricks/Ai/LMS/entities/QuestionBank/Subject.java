@@ -1,4 +1,4 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.entities.QuestionBank;
+package com.bricks_ai_lms.bricks.ai.lms.entities.QuestionBank;
 
 import jakarta.persistence.*;
 import lombok.Getter;

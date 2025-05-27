@@ -1,6 +1,6 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.controllers;
+package com.bricks_ai_lms.bricks.ai.lms.controllers;
 
-import com.bricks_ai_lms.Bricks.Ai.LMS.services.StudentService;
+import com.bricks_ai_lms.bricks.ai.lms.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,15 +1,15 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.services;
+package com.bricks_ai_lms.bricks.ai.lms.services;
 
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.Users.*;
-import com.bricks_ai_lms.Bricks.Ai.LMS.entities.UserEnt.Admin;
-import com.bricks_ai_lms.Bricks.Ai.LMS.entities.UserEnt.Student;
-import com.bricks_ai_lms.Bricks.Ai.LMS.entities.UserEnt.Teacher;
-import com.bricks_ai_lms.Bricks.Ai.LMS.entities.UserEnt.User;
-import com.bricks_ai_lms.Bricks.Ai.LMS.enums.UserRole;
-import com.bricks_ai_lms.Bricks.Ai.LMS.repositories.Users.AdminRepository;
-import com.bricks_ai_lms.Bricks.Ai.LMS.repositories.Users.StudentRepository;
-import com.bricks_ai_lms.Bricks.Ai.LMS.repositories.Users.TeacherRepository;
-import com.bricks_ai_lms.Bricks.Ai.LMS.repositories.Users.UserRepository;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.Users.*;
+import com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt.Admin;
+import com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt.Student;
+import com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt.Teacher;
+import com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt.User;
+import com.bricks_ai_lms.bricks.ai.lms.enums.UserRole;
+import com.bricks_ai_lms.bricks.ai.lms.repositories.Users.AdminRepository;
+import com.bricks_ai_lms.bricks.ai.lms.repositories.Users.StudentRepository;
+import com.bricks_ai_lms.bricks.ai.lms.repositories.Users.TeacherRepository;
+import com.bricks_ai_lms.bricks.ai.lms.repositories.Users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

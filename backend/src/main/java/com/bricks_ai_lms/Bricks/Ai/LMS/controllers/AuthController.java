@@ -1,14 +1,14 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.controllers;
+package com.bricks_ai_lms.bricks.ai.lms.controllers;
 
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.Authentication.AuthenticationRequest;
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.Authentication.AuthenticationResponse;
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.SignUp.SignupRequest;
-import com.bricks_ai_lms.Bricks.Ai.LMS.dtos.Users.UserDto;
-import com.bricks_ai_lms.Bricks.Ai.LMS.entities.UserEnt.User;
-import com.bricks_ai_lms.Bricks.Ai.LMS.repositories.Users.UserRepository;
-import com.bricks_ai_lms.Bricks.Ai.LMS.services.auth.jwt.AuthService;
-import com.bricks_ai_lms.Bricks.Ai.LMS.services.auth.jwt.UserDetailsServiceImpl;
-import com.bricks_ai_lms.Bricks.Ai.LMS.util.JwtUtil;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.Authentication.AuthenticationRequest;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.Authentication.AuthenticationResponse;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.SignUp.SignupRequest;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.Users.UserDto;
+import com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt.User;
+import com.bricks_ai_lms.bricks.ai.lms.repositories.Users.UserRepository;
+import com.bricks_ai_lms.bricks.ai.lms.services.auth.jwt.AuthService;
+import com.bricks_ai_lms.bricks.ai.lms.services.auth.jwt.UserDetailsServiceImpl;
+import com.bricks_ai_lms.bricks.ai.lms.util.JwtUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

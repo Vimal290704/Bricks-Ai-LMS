@@ -1,6 +1,6 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.dtos.Users;
-import com.bricks_ai_lms.Bricks.Ai.LMS.entities.QuestionBank.Subject;
-import com.bricks_ai_lms.Bricks.Ai.LMS.entities.UserEnt.StudentClass;
+package com.bricks_ai_lms.bricks.ai.lms.dtos.Users;
+import com.bricks_ai_lms.bricks.ai.lms.entities.QuestionBank.Subject;
+import com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt.StudentClass;
 import lombok.*;
 import java.time.LocalDate;
 import java.util.List;

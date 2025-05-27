@@ -1,6 +1,6 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.dtos.Users;
+package com.bricks_ai_lms.bricks.ai.lms.dtos.Users;
 
-import com.bricks_ai_lms.Bricks.Ai.LMS.enums.UserRole;
+import com.bricks_ai_lms.bricks.ai.lms.enums.UserRole;
 import lombok.Data;
 
 @Data

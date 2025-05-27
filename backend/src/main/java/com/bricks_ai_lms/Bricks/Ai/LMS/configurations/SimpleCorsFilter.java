@@ -1,4 +1,4 @@
-package com.bricks_ai_lms.Bricks.Ai.LMS.configurations;
+package com.bricks_ai_lms.bricks.ai.lms.configurations;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
