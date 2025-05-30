@@ -1,8 +1,8 @@
-package com.bricks_ai_lms.bricks.ai.lms.controllers;
+package com.bricks_ai_lms.bricks.ai.lms.controllers.Auth;
 
 import com.bricks_ai_lms.bricks.ai.lms.dtos.Authentication.AuthenticationRequest;
 import com.bricks_ai_lms.bricks.ai.lms.dtos.Authentication.AuthenticationResponse;
-import com.bricks_ai_lms.bricks.ai.lms.dtos.SignUp.SignupRequest;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.Authentication.SignupRequest;
 import com.bricks_ai_lms.bricks.ai.lms.dtos.Users.UserDto;
 import com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt.User;
 import com.bricks_ai_lms.bricks.ai.lms.repositories.Users.UserRepository;
@@ -17,7 +17,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,7 +68,6 @@ public class AuthController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "User not active");
             return null;
         }
-        System.out.println("Passed");
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
         final String jwt = jwtUtil.generateToken(userDetails.getUsername());
         Optional<User> optionalUser = userRepository.findByEmail(userDetails.getUsername());

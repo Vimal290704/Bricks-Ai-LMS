@@ -1,10 +1,10 @@
 package com.bricks_ai_lms.bricks.ai.lms.services.auth.jwt;
 
 
-import com.bricks_ai_lms.bricks.ai.lms.dtos.SignUp.SignupRequest;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.Authentication.SignupRequest;
 import com.bricks_ai_lms.bricks.ai.lms.dtos.Users.UserDto;
 import com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt.User;
-import com.bricks_ai_lms.bricks.ai.lms.enums.UserRole;
+import com.bricks_ai_lms.bricks.ai.lms.enums.User.UserRole;
 import com.bricks_ai_lms.bricks.ai.lms.repositories.Users.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +19,9 @@ public class AuthServiceImplementation implements AuthService {
         this.userRepository = userRepository;
     }
 
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    private final UserDto createdUserDto = new UserDto();
     @Override
     @Transactional
     public UserDto createUser(SignupRequest signupRequest) {
@@ -29,7 +32,6 @@ public class AuthServiceImplementation implements AuthService {
         if (userRepository.findByUsername(signupRequest.getUsername()).isPresent()) {
             throw new RuntimeException("Username already in use");
         }
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         User user = new User();
         user.setUsername(signupRequest.getUsername());
         user.setName(signupRequest.getName());
@@ -44,7 +46,6 @@ public class AuthServiceImplementation implements AuthService {
         user.setWeight(signupRequest.getWeight());
         user.setBloodGroup(signupRequest.getBloodGroup());
         User createdUser = userRepository.save(user);
-        UserDto createdUserDto = new UserDto();
         createdUserDto.setId(createdUser.getId());
         createdUserDto.setUsername(createdUser.getUsername());
         createdUserDto.setName(createdUser.getName());

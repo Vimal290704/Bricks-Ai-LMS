@@ -1,9 +1,9 @@
-package com.bricks_ai_lms.bricks.ai.lms.services;
+package com.bricks_ai_lms.bricks.ai.lms.services.Announcement;
 
-import com.bricks_ai_lms.bricks.ai.lms.dtos.AnnouncementRequestDTO;
-import com.bricks_ai_lms.bricks.ai.lms.dtos.AnnouncementResponseDTO;
-import com.bricks_ai_lms.bricks.ai.lms.entities.Announcement;
-import com.bricks_ai_lms.bricks.ai.lms.repositories.AnnouncementRepository;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.Announcement.AnnouncementRequestDTO;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.Announcement.AnnouncementResponseDTO;
+import com.bricks_ai_lms.bricks.ai.lms.entities.Announcement.Announcement;
+import com.bricks_ai_lms.bricks.ai.lms.repositories.Announcement.AnnouncementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
     @Override
     public AnnouncementResponseDTO create(AnnouncementRequestDTO request) {
-        Announcement announcement = new Announcement(null, request.getTitle(), request.getDescription(), request.getClassId());
+        Announcement announcement = new Announcement(null, request.getTitle(), request.getDescription(), request.getSubjectId());
         Announcement saved = repository.save(announcement);
         return mapToResponse(saved);
     }
@@ -43,7 +43,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
                 .orElseThrow(() -> new RuntimeException("Announcement not found"));
         announcement.setTitle(request.getTitle());
         announcement.setDescription(request.getDescription());
-        announcement.setClassId(request.getClassId());
+        announcement.setSubjectId(request.getSubjectId());
         return mapToResponse(repository.save(announcement));
     }
 
@@ -57,7 +57,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
                 announcement.getId(),
                 announcement.getTitle(),
                 announcement.getDescription(),
-                announcement.getClassId()
+                announcement.getSubjectId()
         );
     }
 }

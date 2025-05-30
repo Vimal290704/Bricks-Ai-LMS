@@ -1,7 +1,7 @@
-package com.bricks_ai_lms.bricks.ai.lms.services;
+package com.bricks_ai_lms.bricks.ai.lms.services.Announcement;
 
-import com.bricks_ai_lms.bricks.ai.lms.dtos.AnnouncementRequestDTO;
-import com.bricks_ai_lms.bricks.ai.lms.dtos.AnnouncementResponseDTO;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.Announcement.AnnouncementRequestDTO;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.Announcement.AnnouncementResponseDTO;
 
 import java.util.List;
 

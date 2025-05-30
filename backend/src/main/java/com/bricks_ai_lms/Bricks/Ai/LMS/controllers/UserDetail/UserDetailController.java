@@ -1,4 +1,4 @@
-package com.bricks_ai_lms.bricks.ai.lms.controllers;
+package com.bricks_ai_lms.bricks.ai.lms.controllers.UserDetail;
 
 import com.bricks_ai_lms.bricks.ai.lms.dtos.Users.UserDetailResponseDto;
 import com.bricks_ai_lms.bricks.ai.lms.dtos.Users.UserDto;

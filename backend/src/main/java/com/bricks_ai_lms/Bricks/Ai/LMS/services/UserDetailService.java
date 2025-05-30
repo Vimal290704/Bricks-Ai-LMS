@@ -5,7 +5,7 @@ import com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt.Admin;
 import com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt.Student;
 import com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt.Teacher;
 import com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt.User;
-import com.bricks_ai_lms.bricks.ai.lms.enums.UserRole;
+import com.bricks_ai_lms.bricks.ai.lms.enums.User.UserRole;
 import com.bricks_ai_lms.bricks.ai.lms.repositories.Users.AdminRepository;
 import com.bricks_ai_lms.bricks.ai.lms.repositories.Users.StudentRepository;
 import com.bricks_ai_lms.bricks.ai.lms.repositories.Users.TeacherRepository;

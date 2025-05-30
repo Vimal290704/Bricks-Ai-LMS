@@ -1,4 +1,4 @@
-package com.bricks_ai_lms.bricks.ai.lms.dtos;
+package com.bricks_ai_lms.bricks.ai.lms.dtos.Announcement;
 
 import lombok.*;
 
@@ -9,6 +9,6 @@ public class AnnouncementResponseDTO {
     private Long id;
     private String title;
     private String description;
-    private Long classId;
+    private Long subjectId;
 }
 

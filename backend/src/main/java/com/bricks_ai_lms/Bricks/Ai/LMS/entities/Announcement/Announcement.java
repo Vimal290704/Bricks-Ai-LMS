@@ -1,4 +1,4 @@
-package com.bricks_ai_lms.bricks.ai.lms.entities;
+package com.bricks_ai_lms.bricks.ai.lms.entities.Announcement;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,6 +18,6 @@ public class Announcement {
 
     private String description;
 
-    @Column(name = "class_id")
-    private Long classId;
+    @Column(name = "subject_id")
+    private Long subjectId;
 }

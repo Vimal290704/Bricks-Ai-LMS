@@ -1,4 +1,4 @@
-package com.bricks_ai_lms.bricks.ai.lms.controllers;
+package com.bricks_ai_lms.bricks.ai.lms.controllers.Question;
 
 import com.bricks_ai_lms.bricks.ai.lms.dtos.QuestionBank.FilterRequestDTO;
 import com.bricks_ai_lms.bricks.ai.lms.dtos.QuestionBank.QuestionDTO;

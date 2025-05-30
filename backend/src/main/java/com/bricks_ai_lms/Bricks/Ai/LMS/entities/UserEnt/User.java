@@ -1,7 +1,7 @@
 package com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt;
 
-import com.bricks_ai_lms.bricks.ai.lms.enums.Gender;
-import com.bricks_ai_lms.bricks.ai.lms.enums.UserRole;
+import com.bricks_ai_lms.bricks.ai.lms.enums.User.Gender;
+import com.bricks_ai_lms.bricks.ai.lms.enums.User.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 public class User {
 
     @Id

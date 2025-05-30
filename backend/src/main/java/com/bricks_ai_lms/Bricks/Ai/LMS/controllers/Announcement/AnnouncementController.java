@@ -1,8 +1,8 @@
-package com.bricks_ai_lms.bricks.ai.lms.controllers;
+package com.bricks_ai_lms.bricks.ai.lms.controllers.Announcement;
 
-import com.bricks_ai_lms.bricks.ai.lms.dtos.AnnouncementRequestDTO;
-import com.bricks_ai_lms.bricks.ai.lms.dtos.AnnouncementResponseDTO;
-import com.bricks_ai_lms.bricks.ai.lms.services.AnnouncementService;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.Announcement.AnnouncementRequestDTO;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.Announcement.AnnouncementResponseDTO;
+import com.bricks_ai_lms.bricks.ai.lms.services.Announcement.AnnouncementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
