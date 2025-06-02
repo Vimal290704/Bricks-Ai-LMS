@@ -1,13 +1,13 @@
 package com.bricks_ai_lms.bricks.ai.lms.dtos.Authentication;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-public class AuthenticationResponse {
+@Getter
+@Setter
+public class RefreshTokenResponse {
 
     private String accessToken;
 
     private String refreshToken;
-
-    private String username;
 }

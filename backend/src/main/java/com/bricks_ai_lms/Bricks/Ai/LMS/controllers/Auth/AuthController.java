@@ -1,12 +1,14 @@
 package com.bricks_ai_lms.bricks.ai.lms.controllers.Auth;
 
-import com.bricks_ai_lms.bricks.ai.lms.dtos.Authentication.AuthenticationRequest;
-import com.bricks_ai_lms.bricks.ai.lms.dtos.Authentication.AuthenticationResponse;
-import com.bricks_ai_lms.bricks.ai.lms.dtos.Authentication.SignupRequest;
+import com.bricks_ai_lms.bricks.ai.lms.Exceptions.RefreshTokenException;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.Authentication.*;
+import com.bricks_ai_lms.bricks.ai.lms.dtos.Errors.ErrorResponse;
 import com.bricks_ai_lms.bricks.ai.lms.dtos.Users.UserDto;
+import com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt.RefreshToken;
 import com.bricks_ai_lms.bricks.ai.lms.entities.UserEnt.User;
 import com.bricks_ai_lms.bricks.ai.lms.repositories.Users.UserRepository;
 import com.bricks_ai_lms.bricks.ai.lms.services.auth.jwt.AuthService;
+import com.bricks_ai_lms.bricks.ai.lms.services.auth.jwt.RefreshTokenService;
 import com.bricks_ai_lms.bricks.ai.lms.services.auth.jwt.UserDetailsServiceImpl;
 import com.bricks_ai_lms.bricks.ai.lms.util.JwtUtil;
 import jakarta.servlet.http.HttpServletResponse;
@@ -39,12 +41,15 @@ public class AuthController {
 
     private final JwtUtil jwtUtil;
 
-    public AuthController(AuthService authService, AuthenticationManager authenticationManager, UserDetailsServiceImpl userDetailsService, UserRepository userRepository, JwtUtil jwtUtil) {
+    private final RefreshTokenService refreshTokenService;
+
+    public AuthController(AuthService authService, AuthenticationManager authenticationManager, UserDetailsServiceImpl userDetailsService, UserRepository userRepository, JwtUtil jwtUtil, RefreshTokenService refreshTokenService) {
         this.authService = authService;
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
         this.userRepository = userRepository;
         this.jwtUtil = jwtUtil;
+        this.refreshTokenService = refreshTokenService;
     }
 
     @PostMapping("/signup")
@@ -69,14 +74,55 @@ public class AuthController {
             return null;
         }
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
-        final String jwt = jwtUtil.generateToken(userDetails.getUsername());
+        final String accessToken = jwtUtil.generateAccessToken(userDetails);
         Optional<User> optionalUser = userRepository.findByEmail(userDetails.getUsername());
         AuthenticationResponse authenticationResponse = new AuthenticationResponse();
+        authenticationResponse.setUsername(userDetails.getUsername());
         if (optionalUser.isPresent()) {
-            authenticationResponse.setJwt(jwt);
-            authenticationResponse.setUserRole(optionalUser.get().getRole());
-            authenticationResponse.setUserId(optionalUser.get().getId());
+            authenticationResponse.setAccessToken(accessToken);
+            authenticationResponse.setRefreshToken(refreshTokenService.createRefreshToken(optionalUser.get().getId()).getToken());
         }
         return authenticationResponse;
+    }
+
+    @PostMapping("/refresh")
+    private ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+        try {
+            String refreshToken = refreshTokenRequest.getRefreshToken();
+
+            if (refreshToken == null || refreshToken.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body(new ErrorResponse("Refresh token cannot be empty"));
+            }
+
+            RefreshToken existingRefreshToken = refreshTokenService.findByToken(refreshToken)
+                    .orElseThrow(() -> new RuntimeException("No token exist in database"));
+
+            RefreshToken validToken = refreshTokenService.verifyExpiration(existingRefreshToken);
+
+            User user = validToken.getUser();
+
+            UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
+
+            String newAccessToken = jwtUtil.generateAccessToken(userDetails);
+            RefreshToken newRefreshToken = refreshTokenService.rotateRefreshToken(validToken);
+
+
+            RefreshTokenResponse refreshTokenResponse = new RefreshTokenResponse();
+            refreshTokenResponse.setRefreshToken(newRefreshToken.getToken());
+            refreshTokenResponse.setAccessToken(newAccessToken);
+            return ResponseEntity.ok(refreshTokenResponse);
+        } catch (RefreshTokenException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new ErrorResponse(e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse("Internal server error during token refresh"));
+        }
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@RequestBody LogoutRequest request) {
+        refreshTokenService.deleteByEmail(request.getEmail());
+        return ResponseEntity.ok("Logout successful");
     }
 }
