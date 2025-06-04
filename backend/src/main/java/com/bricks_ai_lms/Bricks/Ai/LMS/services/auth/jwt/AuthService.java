@@ -6,6 +6,5 @@ import com.bricks_ai_lms.bricks.ai.lms.dtos.Users.UserDto;
 
 public interface AuthService {
 
-
     UserDto createUser(SignupRequest signupRequest);
 }

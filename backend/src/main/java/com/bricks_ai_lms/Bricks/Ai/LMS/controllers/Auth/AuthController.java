@@ -18,13 +18,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Optional;
 
 @RestController
@@ -64,65 +63,84 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public AuthenticationResponse createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response) throws IOException {
+    public ResponseEntity<?> login(@RequestBody AuthenticationRequest authenticationRequest) {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
-        } catch (BadCredentialsException e) {
-            throw new BadCredentialsException("Incorrect username or Password");
-        } catch (DisabledException disabledException) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND, "User not active");
-            return null;
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            authenticationRequest.getUsername(),
+                            authenticationRequest.getPassword()
+                    )
+            );
+            UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+            String accessToken = jwtUtil.generateAccessToken(userDetails);
+            RefreshToken refreshTokenEntity = refreshTokenService.createRefreshToken(userDetails);
+            Date accessTokenExpiry = jwtUtil.getExpirationDate(accessToken);
+            Date refreshTokenExpiry = jwtUtil.getExpirationDate(refreshTokenEntity.getToken());
+            AuthenticationResponse authenticationResponse = new AuthenticationResponse(
+                    accessToken,
+                    refreshTokenEntity.getToken(),
+                    accessTokenExpiry,
+                    refreshTokenExpiry,
+                    userDetails.getUsername()
+            );
+            refreshTokenService.cleanupExpiredTokens();
+            return ResponseEntity.ok(authenticationResponse);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body(new ErrorResponse("Invalid credentials"));
         }
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
-        final String accessToken = jwtUtil.generateAccessToken(userDetails);
-        Optional<User> optionalUser = userRepository.findByEmail(userDetails.getUsername());
-        AuthenticationResponse authenticationResponse = new AuthenticationResponse();
-        authenticationResponse.setUsername(userDetails.getUsername());
-        if (optionalUser.isPresent()) {
-            authenticationResponse.setAccessToken(accessToken);
-            authenticationResponse.setRefreshToken(refreshTokenService.createRefreshToken(optionalUser.get().getId()).getToken());
-        }
-        return authenticationResponse;
     }
 
     @PostMapping("/refresh")
-    private ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+    public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequest request) {
         try {
-            String refreshToken = refreshTokenRequest.getRefreshToken();
+            String refreshToken = request.getRefreshToken();
+            String username = jwtUtil.extractUsername(refreshToken);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            if (refreshTokenService.validateRefreshToken(refreshToken, userDetails)) {
+                refreshTokenService.deactivateToken(refreshToken);
+                String newRefreshToken = refreshTokenService.createRefreshToken(userDetails).getToken();
+                String newAccessToken = jwtUtil.generateAccessToken(userDetails);
+                Date accessTokenExpiry = jwtUtil.getExpirationDate(newAccessToken);
 
-            if (refreshToken == null || refreshToken.trim().isEmpty()) {
-                return ResponseEntity.badRequest().body(new ErrorResponse("Refresh token cannot be empty"));
+                RefreshTokenResponse refreshTokenResponse = new RefreshTokenResponse(newAccessToken, newRefreshToken, accessTokenExpiry);
+                return ResponseEntity.ok(refreshTokenResponse);
+            } else {
+                return ResponseEntity.badRequest()
+                        .body(new ErrorResponse("Invalid refresh token"));
             }
 
-            RefreshToken existingRefreshToken = refreshTokenService.findByToken(refreshToken)
-                    .orElseThrow(() -> new RuntimeException("No token exist in database"));
-
-            RefreshToken validToken = refreshTokenService.verifyExpiration(existingRefreshToken);
-
-            User user = validToken.getUser();
-
-            UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
-
-            String newAccessToken = jwtUtil.generateAccessToken(userDetails);
-            RefreshToken newRefreshToken = refreshTokenService.rotateRefreshToken(validToken);
-
-
-            RefreshTokenResponse refreshTokenResponse = new RefreshTokenResponse();
-            refreshTokenResponse.setRefreshToken(newRefreshToken.getToken());
-            refreshTokenResponse.setAccessToken(newAccessToken);
-            return ResponseEntity.ok(refreshTokenResponse);
-        } catch (RefreshTokenException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new ErrorResponse(e.getMessage()));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse("Internal server error during token refresh"));
+            return ResponseEntity.badRequest()
+                    .body(new ErrorResponse("Token refresh failed"));
         }
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(@RequestBody LogoutRequest request) {
-        refreshTokenService.deleteByEmail(request.getEmail());
-        return ResponseEntity.ok("Logout successful");
+    public ResponseEntity<?> logout(@RequestHeader("Authorization") String authHeader,
+                                    @RequestBody(required = false) LogoutRequest logoutRequest) {
+        try {
+            String accessToken = null;
+            if (authHeader != null && authHeader.startsWith("Bearer ")) {
+                accessToken = authHeader.substring(7);
+            }
+
+            if (accessToken != null) {
+                String username = jwtUtil.extractUsername(accessToken);
+
+                if (logoutRequest != null && logoutRequest.getRefreshToken() != null) {
+                    refreshTokenService.deactivateToken(logoutRequest.getRefreshToken());
+                } else {
+                    refreshTokenService.deactivateAllTokensForUser(username);
+                }
+
+            }
+            refreshTokenService.cleanupExpiredTokens();
+            return ResponseEntity.ok("Logout successful");
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body(new ErrorResponse("Logout failed"));
+        }
     }
 }

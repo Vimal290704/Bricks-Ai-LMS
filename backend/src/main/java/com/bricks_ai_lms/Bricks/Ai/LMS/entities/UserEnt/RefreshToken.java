@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,16 +17,36 @@ public class RefreshToken {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 1000)
     private String token;
 
     @Column(nullable = false)
-    private Instant expiryDate;
+    private LocalDateTime expiryDate;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
 
+    @Column(nullable = false)
+    private boolean isActive;
+
+    public boolean isExpired() {
+        return LocalDateTime.now().isAfter(this.expiryDate);
+    }
+
+    @Column(nullable = false)
+    private String username;
+
+    public RefreshToken() {
+        this.createdAt = LocalDateTime.now();
+        this.isActive = true;
+    }
+
+    public RefreshToken(String token, String username, LocalDateTime expiryDate) {
+        this();
+        this.token = token;
+        this.username = username;
+        this.expiryDate = expiryDate;
+    }
 }
 
 

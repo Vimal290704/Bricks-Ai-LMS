@@ -7,14 +7,14 @@ import lombok.Setter;
 @Getter
 public class AuthenticationRequest {
 
-    private String email;
+    private String username;
 
     private String password;
 
     @Override
     public String toString() {
         return "AuthenticationRequest{" +
-                "email='" + email + '\'' +
+                "email='" + username + '\'' +
                 ", password='[PROTECTED]'" +
                 '}';
     }
